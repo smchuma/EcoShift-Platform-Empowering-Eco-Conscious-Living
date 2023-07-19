@@ -11,7 +11,7 @@ const Navbar = () => {
         py="15px"
         px="50px"
         pos="fixed"
-        zIndex={10}
+        zIndex={20}
         top={0}
         // boxShadow="0px 2px 4px rgba(2, 89, 81, 0.2)"
       >

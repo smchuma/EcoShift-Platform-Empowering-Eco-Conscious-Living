@@ -1,5 +1,12 @@
 import { Box } from "@chakra-ui/react";
-import { Features, Hero, Introduction, Navbar } from "../../components";
+import {
+  CallToAction,
+  Features,
+  Hero,
+  Introduction,
+  Navbar,
+  WhyUs,
+} from "../../components";
 const Home = () => {
   return (
     <>
@@ -8,6 +15,8 @@ const Home = () => {
         <Hero />
         <Introduction />
         <Features />
+        <WhyUs />
+        <CallToAction />
       </Box>
     </>
   );
