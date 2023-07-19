@@ -1,5 +1,5 @@
 import { Box } from "@chakra-ui/react";
-import { Hero, Introduction, Navbar } from "../../components";
+import { Features, Hero, Introduction, Navbar } from "../../components";
 const Home = () => {
   return (
     <>
@@ -7,6 +7,7 @@ const Home = () => {
       <Box mt="70px">
         <Hero />
         <Introduction />
+        <Features />
       </Box>
     </>
   );

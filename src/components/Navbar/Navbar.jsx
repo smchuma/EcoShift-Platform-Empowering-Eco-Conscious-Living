@@ -5,7 +5,7 @@ const Navbar = () => {
   return (
     <nav>
       <HStack
-        bg="#008872"
+        bg="#01836d"
         w="100%"
         justify="space-between"
         py="15px"
@@ -13,7 +13,7 @@ const Navbar = () => {
         pos="fixed"
         zIndex={10}
         top={0}
-        boxShadow="0px 2px 4px rgba(2, 89, 81, 0.2)"
+        // boxShadow="0px 2px 4px rgba(2, 89, 81, 0.2)"
       >
         <Box>
           <Image src={logo} width="50px" />
