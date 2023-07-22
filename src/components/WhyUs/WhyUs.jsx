@@ -14,7 +14,13 @@ const WhyUs = () => {
       >
         Why Choose Us
       </Text>
-      <Text px="120px" color="white" fontSize="23px" textAlign="justify">
+      <Text
+        px={{ base: "20px", md: "120px" }}
+        color="white"
+        fontSize="23px"
+        textAlign={{ base: "center", md: "justify" }}
+        pb={{ base: "50px", lg: "0px" }}
+      >
         "Here at EcoShift, we are dedicated to fostering a global community of
         individuals committed to sustainable living. Our platform provides a
         safe and inclusive space for everyone to share ideas, collaborate, and

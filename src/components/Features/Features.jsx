@@ -13,7 +13,7 @@ const Features = () => {
       >
         Features Highlights
       </Text>
-      <Box pb="100px" px="120px">
+      <Box pb="100px" px={{ base: "0px", md: "120px" }}>
         <FeaturesGrid />
       </Box>
     </Stack>

@@ -7,6 +7,12 @@
   font-family: "Poppins", sans-serif;
 }
 
+html,
+body,
+:root {
+  background-color: #07261b;
+}
+
 .gradient {
   background-color: #20bf55;
   background-image: linear-gradient(315deg, #009d83 0%, #008872 74%);
@@ -18,4 +24,13 @@
   transition: 0.4s ease !important;
   cursor: pointer !important;
   font-size: 15px !important;
+}
+
+body {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+body::-webkit-scrollbar {
+  display: none;
 }

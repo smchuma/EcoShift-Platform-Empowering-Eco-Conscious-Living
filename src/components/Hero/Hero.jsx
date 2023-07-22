@@ -5,18 +5,33 @@ import leaf from "../../assets/images/try2.png";
 
 const Hero = () => {
   return (
-    <Stack overflow="hidden" direction="row" bg="#008872" w="100%" h="90vh">
-      <Flex flex="1" justify="center">
+    <Stack
+      overflow="hidden"
+      direction="row"
+      bg="#008872"
+      w="100%"
+      h={{ base: "80vh", lg: "90vh" }}
+    >
+      <Flex flex="1" display={{ base: "none", lg: "flex" }} justify="center">
         <Image mt="60px" src={eco} w="80%" h="80%" />
       </Flex>
       <Flex flex="1" flexDir="column" pos="relative">
         <Stack zIndex={10} mt="100px" align="center">
           <Image src={logo} width="150px" />
 
-          <Text color="white" fontWeight="600" fontSize="40px">
+          <Text
+            color="white"
+            fontWeight="600"
+            textAlign="center"
+            fontSize="40px"
+          >
             Join the Green Movement
           </Text>
-          <Text textAlign="center" fontSize="30px" color="#e2ffa2">
+          <Text
+            textAlign="center"
+            fontSize={{ base: "22px", md: "30px" }}
+            color="#e2ffa2"
+          >
             Your Platform <br /> for Eco-Conscious Living
           </Text>
           <Button
@@ -32,7 +47,14 @@ const Hero = () => {
             Join Now
           </Button>
         </Stack>
-        <Image top={350} left={250} pos="absolute" src={leaf} width="100%" />
+        <Image
+          top={350}
+          display={{ base: "none", lg: "flex" }}
+          left={250}
+          pos="absolute"
+          src={leaf}
+          width="100%"
+        />
       </Flex>
     </Stack>
   );

@@ -15,12 +15,17 @@ const CallToAction = () => {
         color="#01c19d"
         fontWeight="600"
         mb="10px"
-        pt="100px"
+        pt={{ base: "50px", lg: "100px" }}
         textAlign="center"
       >
         Ready to make a difference?
       </Text>
-      <Text px="120px" color="black" fontSize="23px" textAlign="center">
+      <Text
+        px={{ base: "20px", md: "120px" }}
+        color="black"
+        fontSize={{ base: "20px", md: "23px" }}
+        textAlign="center"
+      >
         Join our eco-conscious community today and take the first step towards a
         greener tomorrow. Click 'Get Started' to embark on your sustainable
         journey!
@@ -33,6 +38,7 @@ const CallToAction = () => {
         _hover={{ transform: "scale(1.1)" }}
         mt="20px"
         borderRadius="20px"
+        mb={{ base: "50px", lg: "0px" }}
       >
         Get Started
       </Button>

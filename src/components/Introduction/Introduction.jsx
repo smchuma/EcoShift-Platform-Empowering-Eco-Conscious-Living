@@ -4,10 +4,22 @@ import pic1 from "../../assets/images/intropic.png";
 
 const Introduction = () => {
   return (
-    <Stack py="50px" color="black" direction="row" bg="#F0EBE5" w="100%">
+    <Stack
+      py="50px"
+      color="black"
+      direction={{ base: "column", lg: "row" }}
+      bg="#F0EBE5"
+      w="100%"
+    >
       <Flex flex="1">
         <Stack px="50px" justify="center">
-          <Text fontSize="40px" color="#517053" fontWeight="600" mb="20px">
+          <Text
+            fontSize="40px"
+            color="#517053"
+            fontWeight="600"
+            mb="20px"
+            textAlign={{ base: "center", md: "start" }}
+          >
             Embrace a Greener Tomorrow
           </Text>
           <Text textAlign="justify" fontSize="16px">
