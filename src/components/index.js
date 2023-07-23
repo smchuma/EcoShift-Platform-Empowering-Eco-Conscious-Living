@@ -6,3 +6,5 @@ export { default as WhyUs } from "./WhyUs/WhyUs";
 export { default as CallToAction } from "./CallToAction/CallToAction";
 export { default as DashLayout } from "./DashLayout/DashLayout";
 export { default as RequireAuth } from "./RequireAuth/RequireAuth";
+export { default as Header } from "./Header/Header";
+export { default as Post } from "./Post/Post";

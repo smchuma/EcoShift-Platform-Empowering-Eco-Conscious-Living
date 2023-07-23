@@ -1,10 +1,17 @@
-import { Flex, Stack, Text } from "@chakra-ui/react";
+import { Box, Stack } from "@chakra-ui/react";
+import { Header, Post } from "../../components";
 
 const Feed = () => {
   return (
-    <Flex align="center" color="white" justify="cen">
-      <Text>hello</Text>
-    </Flex>
+    <Stack color="white">
+      <Box mt={2}>
+        <Header />
+      </Box>
+      <Stack w="90%" gap={20} pt={10} m="auto">
+        <Post />
+        <Post />
+      </Stack>
+    </Stack>
   );
 };
 
