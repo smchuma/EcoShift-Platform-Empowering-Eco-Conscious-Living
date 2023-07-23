@@ -96,7 +96,6 @@ const Post = (feed) => {
               color="white"
               fontWeight="300"
               onClick={handleJoin}
-              col
               w="100px"
               _hover={{ transform: "scale(1.05)" }}
             >
@@ -141,13 +140,7 @@ const Post = (feed) => {
           </Flex>
           <Box></Box>
         </Stack>
-        <Flex
-          mt={5}
-          alignItems="center"
-          justify="center"
-
-          // sssssssssssssssssssssssss
-        >
+        <Flex mt={5} alignItems="center" justify="center">
           <Box>
             <Flex align="center">
               <Icon

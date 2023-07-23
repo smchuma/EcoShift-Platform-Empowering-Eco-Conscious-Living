@@ -270,8 +270,7 @@ export const FeedContextProvider = ({ children }) => {
       return response.json();
     },
     {
-      onSuccess: async (addedComment) => {
-        console.log(addedComment);
+      onSuccess: async () => {
         await refetch();
       },
       onError: (err) => {

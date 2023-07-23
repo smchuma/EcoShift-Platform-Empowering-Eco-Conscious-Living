@@ -3,6 +3,7 @@ import {
   Box,
   Button,
   Flex,
+  Input,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -20,11 +21,13 @@ import PropTypes from "prop-types";
 import useUser from "../../hooks/useUser";
 import useFeed from "../../hooks/useFeed";
 import { MdAddToPhotos } from "react-icons/md";
+import { CLOUD_URL, CLOUD_NAME, CLOUD_PRESET } from "../../api_url/api";
 
 const PostModal = ({ children }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { user } = useUser();
   const { postFeed } = useFeed();
+  const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
   const [imagePreviewUrl, setImagePreviewUrl] = useState(null);
@@ -40,21 +43,19 @@ const PostModal = ({ children }) => {
     try {
       const cloud = new FormData();
       cloud.append("file", selectedFile);
-      cloud.append("upload_preset", "scholar");
-      cloud.append("cloud_name", "egfscholar");
-      const response = await fetch(
-        "https://api.cloudinary.com/v1_1/egfscholar/image/upload",
-        {
-          method: "POST",
-          body: cloud,
-        }
-      );
+      cloud.append("upload_preset", CLOUD_PRESET);
+      cloud.append("cloud_name", CLOUD_NAME);
+      const response = await fetch(CLOUD_URL, {
+        method: "POST",
+        body: cloud,
+      });
       const data = await response.json();
       const img = data.secure_url;
 
       // Call the backend API to save the URL
-      const result = await postFeed.mutateAsync({ desc, img });
-      console.log(result);
+      await postFeed.mutateAsync({ title, desc, img });
+
+      setTitle("");
       setDesc("");
       setSelectedFile(null);
     } catch (error) {
@@ -96,11 +97,21 @@ const PostModal = ({ children }) => {
                   w="100%"
                   p="1rem"
                 >
+                  <Input
+                    placeholder="Enter your title"
+                    w="100%"
+                    borde="1px solid white"
+                    onChange={(e) => setTitle(e.target.value)}
+                    focusBorderColor="white"
+                    _placeholder={{ color: "white" }}
+                    color="white"
+                  />
                   <Textarea
-                    placeholder="What's on your mind?"
+                    placeholder="Enter your challenge about?"
                     h="200px"
                     w="100%"
                     border={0}
+                    color="white"
                     onChange={(e) => setDesc(e.target.value)}
                     focusBorderColor="transparent"
                     _placeholder={{ color: "white" }}

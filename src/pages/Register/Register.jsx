@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/react";
 import { Link, useNavigate } from "react-router-dom";
 import TextField from "../../Formik/TextField";
-import { BASEURL } from "../../API_URL/api";
+import { BASEURL } from "../../api_url/api";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";

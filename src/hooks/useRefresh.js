@@ -1,6 +1,6 @@
 import axios from "axios";
 import useAuth from "../hooks/useAuth";
-import { BASEURL } from "../API_URL/api";
+import { BASEURL } from "../api_url/api";
 
 const useRefreshToken = () => {
   const { dispatch } = useAuth();

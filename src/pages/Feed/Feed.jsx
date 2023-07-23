@@ -5,8 +5,6 @@ import useFeed from "../../hooks/useFeed";
 const Feed = () => {
   const { feeds } = useFeed();
 
-  console.log("feeds", feeds);
-
   if (!feeds) {
     return <SkeletonLoader />;
   }
