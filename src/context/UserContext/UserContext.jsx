@@ -3,10 +3,9 @@ import { useMutation, useQuery } from "react-query";
 import axios from "axios";
 import useAuth from "../../hooks/useAuth";
 import useRefreshToken from "../../hooks/useRefresh";
-import { BASEURL } from "../../API_URL/api";
+import { BASEURL } from "../../api_url/api";
 import PropTypes from "prop-types";
-import { useNavigate } from "react-router-dom";
-import { SkeletonLoader } from "../../components";
+import { HorizontalLoader } from "../../components";
 
 const UserContext = createContext();
 
@@ -15,7 +14,6 @@ export const UserContextProvider = ({ children, fetchUser = true }) => {
   const [loading, setLoading] = useState(false);
   const { userId } = state;
   const refreshAccessToken = useRefreshToken();
-  const navigate = useNavigate();
 
   const {
     data: user,
@@ -41,7 +39,16 @@ export const UserContextProvider = ({ children, fetchUser = true }) => {
       },
     }
   );
-
+  const { data: allUsers, isLoading: allLoading } = useQuery(
+    "Allusers",
+    async () => {
+      const accessToken = await refreshAccessToken();
+      const { data } = await axios.get(`${BASEURL}/user/`, {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      });
+      return data;
+    }
+  );
   const updateUser = useMutation(
     async (updatedUser) => {
       const accessToken = await refreshAccessToken();
@@ -63,21 +70,22 @@ export const UserContextProvider = ({ children, fetchUser = true }) => {
       },
     }
   );
+
+  if (isLoading) return <HorizontalLoader />;
   if (isError) {
-    alert("Sorry, an error occurred, server down");
-    navigate("/");
-    return null;
+    return <div>Error fetching user data</div>;
   }
 
   return (
     <UserContext.Provider
       value={{
         user,
+        allUsers,
+        allLoading,
         updateUser,
-        isLoading,
       }}
     >
-      {loading && <SkeletonLoader />}
+      {loading && <HorizontalLoader />}
       {children}
     </UserContext.Provider>
   );

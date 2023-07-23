@@ -8,3 +8,6 @@ export { default as DashLayout } from "./DashLayout/DashLayout";
 export { default as RequireAuth } from "./RequireAuth/RequireAuth";
 export { default as Header } from "./Header/Header";
 export { default as Post } from "./Post/Post";
+export { default as SkeletonLoader } from "./SkeletonLoader/SkeletonLoader";
+export { default as HorizontalLoader } from "./HorizontalLoader/HorizontalLoader";
+export { default as PostModal } from "./PostModal/PostModal";
