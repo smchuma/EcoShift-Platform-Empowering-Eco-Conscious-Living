@@ -60,6 +60,7 @@ const Navbar = () => {
                 <Button
                   className="btn"
                   borderWidth={1}
+                  borderColor="white"
                   px={5}
                   borderRadius={20}
                   variant="unstyled"
