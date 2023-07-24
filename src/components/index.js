@@ -11,3 +11,4 @@ export { default as Post } from "./Post/Post";
 export { default as SkeletonLoader } from "./SkeletonLoader/SkeletonLoader";
 export { default as HorizontalLoader } from "./HorizontalLoader/HorizontalLoader";
 export { default as PostModal } from "./PostModal/PostModal";
+export { default as Profile } from "./Profile/Profile";

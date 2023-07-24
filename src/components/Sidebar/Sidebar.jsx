@@ -2,7 +2,7 @@ import { Avatar, Box, Button, Flex, Stack, Text } from "@chakra-ui/react";
 import { FaUser } from "react-icons/fa";
 import { BsGear } from "react-icons/bs";
 import { Link } from "react-router-dom";
-import { AiOutlineLogout } from "react-icons/ai";
+import { AiFillHome, AiOutlineLogout } from "react-icons/ai";
 import { MdPostAdd } from "react-icons/md";
 import useUser from "../../hooks/useUser";
 import useAuth from "../../hooks/useAuth";
@@ -30,18 +30,34 @@ const Sidebar = () => {
         </Link>
       </Flex>
       <Stack gap={5} align="center">
-        <Flex
-          w="200px"
-          cursor="pointer"
-          _hover={{ bg: "#177067" }}
-          py={2}
-          borderRadius="full"
-          px={10}
-          align="center"
-        >
-          <FaUser size={24} />
-          <Text ml="15px">Profile</Text>
-        </Flex>
+        <Link to="/feed">
+          <Flex
+            w="200px"
+            cursor="pointer"
+            _hover={{ bg: "#177067" }}
+            py={2}
+            borderRadius="full"
+            px={10}
+            align="center"
+          >
+            <AiFillHome size={24} />
+            <Text ml="15px">Home</Text>
+          </Flex>
+        </Link>
+        <Link to={`/profile/${user._id}`}>
+          <Flex
+            w="200px"
+            cursor="pointer"
+            _hover={{ bg: "#177067" }}
+            py={2}
+            borderRadius="full"
+            px={10}
+            align="center"
+          >
+            <FaUser size={24} />
+            <Text ml="15px">Profile</Text>
+          </Flex>
+        </Link>
         <Flex
           w="200px"
           cursor="pointer"

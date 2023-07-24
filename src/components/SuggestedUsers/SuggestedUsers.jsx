@@ -3,6 +3,7 @@ import { Avatar, AvatarBadge, Box, Stack, Text } from "@chakra-ui/react";
 import SkeletonLoader from "../SkeletonLoader/SkeletonLoader";
 import useUser from "../../hooks/useUser";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
 const SuggestedUser = ({ isOnline }) => {
   const { user, allUsers, allLoading } = useUser();
@@ -19,23 +20,25 @@ const SuggestedUser = ({ isOnline }) => {
         <>
           <Box>
             {filteredUsers.slice(0, 6).map((user) => (
-              <Stack
-                key={user._id}
-                direction="row"
-                spacing={4}
-                align="center"
-                mb={10}
-                color="white"
-              >
-                <Avatar
-                  size="md"
-                  name={user.firstName + " " + user.lastName}
-                  src={user?.profilePicture}
+              <Link to={`/profile/${user._id}`} key={user._id}>
+                <Stack
+                  direction="row"
+                  spacing={4}
+                  align="center"
+                  mb={10}
+                  color="white"
+                  cursor="pointer"
                 >
-                  {isOnline && <AvatarBadge boxSize="1em" bg="green.500" />}
-                </Avatar>
-                <Text>{user.firstName + " " + user.lastName}</Text>
-              </Stack>
+                  <Avatar
+                    size="md"
+                    name={user.firstName + " " + user.lastName}
+                    src={user?.profilePicture}
+                  >
+                    {isOnline && <AvatarBadge boxSize="1em" bg="green.500" />}
+                  </Avatar>
+                  <Text>{user.firstName + " " + user.lastName}</Text>
+                </Stack>
+              </Link>
             ))}
           </Box>
         </>

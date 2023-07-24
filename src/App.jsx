@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import { Feed, Home, Login, Page404, Profile, Register } from "./pages";
+import { Feed, Home, Login, Page404, ProfilePage, Register } from "./pages";
 import { RequireAuth, DashLayout } from "./components";
 import "./App.css";
 
@@ -14,7 +14,7 @@ const App = () => {
         <Route element={<RequireAuth />}>
           <Route element={<DashLayout />}>
             <Route path="/feed" element={<Feed />} />
-            <Route path="/profile/:id" element={<Profile />} />
+            <Route path="/profile/:id" element={<ProfilePage />} />
           </Route>
         </Route>
 
