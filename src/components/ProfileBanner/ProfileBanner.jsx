@@ -16,6 +16,7 @@ import {
 import PropTypes from "prop-types";
 import useUser from "../../hooks/useUser";
 import { AiFillCamera } from "react-icons/ai";
+import { CLOUD_NAME, CLOUD_PRESET, CLOUD_URL } from "../../api_url/api";
 
 const img = "https://via.placeholder.com/1500x300.png";
 
@@ -41,21 +42,18 @@ const ProfileBanner = ({ dyUser }) => {
     try {
       const cloud = new FormData();
       cloud.append("file", selectedFile);
-      cloud.append("upload_preset", "scholar");
-      cloud.append("cloud_name", "egfscholar");
-      onClose();
-      const response = await fetch(
-        "https://api.cloudinary.com/v1_1/egfscholar/image/upload",
-        {
-          method: "POST",
-          body: cloud,
-        }
-      );
+      cloud.append("upload_preset", CLOUD_PRESET);
+      cloud.append("cloud_name", CLOUD_NAME);
+      const response = await fetch(CLOUD_URL, {
+        method: "POST",
+        body: cloud,
+      });
       const data = await response.json();
       const coverPicture = data.secure_url;
 
       // Call the backend API to save the URL
       await updateUser.mutateAsync({ coverPicture });
+      onClose();
       setSelectedFile(null);
     } catch (error) {
       console.log(error);

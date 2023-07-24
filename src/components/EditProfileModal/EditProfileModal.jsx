@@ -12,7 +12,6 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
-  Select,
   Stack,
   useDisclosure,
 } from "@chakra-ui/react";
@@ -28,42 +27,26 @@ const EditProfileModal = () => {
     lastName: user?.lastName || "",
     desc: user?.desc || "",
     city: user?.city || "",
-    currentPosition: user?.currentPosition || "",
     education: user?.education || "",
     phone: user?.phone || "",
     address: user?.address || "",
     birthday: user?.birthday || "",
-    followers: {
-      facebook: user?.followers?.facebook || "",
-      twitter: user?.followers?.twitter || "",
-      instagram: user?.followers?.instagram || "",
-      linkedIn: user?.followers?.linkedIn || "",
-    },
   });
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    if (["facebook", "twitter", "instagram", "linkedIn"].includes(name)) {
-      setFormData((prevFormData) => ({
-        ...prevFormData,
-        followers: {
-          ...prevFormData.followers,
-          [name]: value,
-        },
-      }));
-    } else {
-      setFormData((prevFormData) => ({
-        ...prevFormData,
-        [name]: value,
-      }));
-    }
+
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: value,
+    }));
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     try {
+      await updateUser.mutateAsync(formData);
       onClose();
-      updateUser.mutateAsync(formData);
     } catch (error) {
       console.log(error);
     }
@@ -78,7 +61,7 @@ const EditProfileModal = () => {
             md: "auto",
           }}
           onClick={onOpen}
-          colorScheme="red"
+          colorScheme="white"
           variant="outline"
           mt={3}
         >
@@ -133,17 +116,6 @@ const EditProfileModal = () => {
                       type="text"
                     />
                   </FormControl>
-                  <FormControl id="currentPosition">
-                    <FormLabel>Current Position</FormLabel>
-                    <Select
-                      value={formData.currentPosition}
-                      onChange={handleChange}
-                      name="currentPosition"
-                    >
-                      <option value="student">Student</option>
-                      <option value="employed">Employed</option>
-                    </Select>
-                  </FormControl>
                 </Box>
                 <Box>
                   <Box fontWeight="semibold" mb="1">
@@ -188,47 +160,6 @@ const EditProfileModal = () => {
                       value={formData.birthday}
                       onChange={handleChange}
                       name="birthday"
-                    />
-                  </FormControl>
-                </Box>
-                <Box>
-                  <Box fontWeight="semibold" mb="1">
-                    Social Links
-                  </Box>
-                  <FormControl id="facebook">
-                    <FormLabel>Facebook</FormLabel>
-                    <Input
-                      type="url"
-                      value={formData.followers?.[0]?.facebook}
-                      onChange={handleChange}
-                      name="facebook"
-                    />
-                  </FormControl>
-                  <FormControl id="twitter">
-                    <FormLabel>Twitter</FormLabel>
-                    <Input
-                      type="url"
-                      value={formData.followers?.[0]?.twitter}
-                      onChange={handleChange}
-                      name="twitter"
-                    />
-                  </FormControl>
-                  <FormControl id="instagram">
-                    <FormLabel>Instagram</FormLabel>
-                    <Input
-                      type="url"
-                      value={formData.followers?.[0]?.instagram}
-                      onChange={handleChange}
-                      name="instagram"
-                    />
-                  </FormControl>
-                  <FormControl id="linkedIn">
-                    <FormLabel>LinkedIn</FormLabel>
-                    <Input
-                      type="url"
-                      value={formData.followers?.[0]?.linkedIn}
-                      onChange={handleChange}
-                      name="linkedIn"
                     />
                   </FormControl>
                 </Box>

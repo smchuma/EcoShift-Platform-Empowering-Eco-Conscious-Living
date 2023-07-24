@@ -17,6 +17,7 @@ import {
 import PropTypes from "prop-types";
 import { AiFillCamera } from "react-icons/ai";
 import useUser from "../../hooks/useUser";
+import { CLOUD_NAME, CLOUD_PRESET, CLOUD_URL } from "../../api_url/api";
 
 const AvatarModal = ({ dyUser }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -41,16 +42,12 @@ const AvatarModal = ({ dyUser }) => {
     try {
       const cloud = new FormData();
       cloud.append("file", selectedFile);
-      cloud.append("upload_preset", "scholar");
-      cloud.append("cloud_name", "egfscholar");
-      onClose();
-      const response = await fetch(
-        "https://api.cloudinary.com/v1_1/egfscholar/image/upload",
-        {
-          method: "POST",
-          body: cloud,
-        }
-      );
+      cloud.append("upload_preset", CLOUD_PRESET);
+      cloud.append("cloud_name", CLOUD_NAME);
+      const response = await fetch(CLOUD_URL, {
+        method: "POST",
+        body: cloud,
+      });
 
       const data = await response.json();
       const profilePicture = data.secure_url;
@@ -58,6 +55,7 @@ const AvatarModal = ({ dyUser }) => {
       // Call the backend API to save the URL
       await updateUser.mutateAsync({ profilePicture });
       setSelectedFile(null);
+      onClose();
     } catch (error) {
       console.log(error);
     }
@@ -83,7 +81,6 @@ const AvatarModal = ({ dyUser }) => {
             bottom="0"
             right="0"
             size="sm"
-            color="brand.secondary"
             borderRadius="50%"
             backgroundColor={bgColor}
           />
