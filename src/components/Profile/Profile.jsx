@@ -1,14 +1,30 @@
-import { Box, Flex, Heading, Stack } from "@chakra-ui/react";
+import { Box, Flex, Heading, Stack, Text } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 import AvatarModal from "../AvatarModal/AvatarModal";
 import EditProfileModal from "../EditProfileModal/EditProfileModal";
 import ProfileBanner from "../ProfileBanner/ProfileBanner";
 import useUser from "../../hooks/useUser";
+import AboutMe from "../AboutMe/AboutMe";
+import usePost from "../../hooks/usePost";
+import FeedPost from "../FeedPost/FeedPost";
 
 const Profile = () => {
   const { id } = useParams();
   const { user, allUsers } = useUser();
   const dyUser = allUsers?.find((user) => user?._id === id);
+  const { posts } = usePost();
+
+  if (!posts) {
+    return <Text>Loading...</Text>;
+  }
+
+  const getPosts = posts.filter((post) => post?.userId === id);
+
+  console.log("getPosts", getPosts);
+
+  if (!dyUser) {
+    return <Text>Loading...</Text>;
+  }
 
   const firstName = `${dyUser?.firstName
     .charAt(0)
@@ -24,6 +40,8 @@ const Profile = () => {
         <Flex
           justify="space-between"
           align="center"
+          pb={5}
+          borderBottom="1px solid #e4e4e4"
           flexDirection={{
             base: "column",
             md: "row",
@@ -65,6 +83,29 @@ const Profile = () => {
           </Flex>
           <Box>{user?._id === dyUser?._id && <EditProfileModal />}</Box>
         </Flex>
+      </Box>
+      <Box>
+        <AboutMe dyUser={dyUser} />
+      </Box>
+      <Box>
+        <Text fontWeight="300" fontSize="lg" color="gray.100" mt={8} mx={2}>
+          My Posts
+        </Text>
+        <Stack w="80%" gap={20} pt={5} m="auto">
+          {getPosts.length === 0 && (
+            <Text textAlign="center" color="gray.500">
+              There are no posts yet
+            </Text>
+          )}
+          {getPosts &&
+            getPosts
+              .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+              .map((post) => (
+                <Box key={post._id}>
+                  <FeedPost post={post} />
+                </Box>
+              ))}
+        </Stack>
       </Box>
     </Stack>
   );

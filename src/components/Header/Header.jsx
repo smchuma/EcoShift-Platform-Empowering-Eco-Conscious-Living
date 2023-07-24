@@ -11,7 +11,7 @@ const Header = () => {
       m="auto"
       p={8}
       borderBottom="1px solid "
-      borderColor="#10413c"
+      borderColor="#d0d0d0"
       justify="space-between"
     >
       <Text>Challenges</Text>
@@ -19,6 +19,7 @@ const Header = () => {
         <Flex
           px={5}
           cursor="pointer"
+          color="white"
           bg="#177067"
           _hover={{ transform: "scale(1.1)" }}
           py={3}

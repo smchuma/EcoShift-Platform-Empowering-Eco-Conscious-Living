@@ -7,7 +7,7 @@ import RightBar from "../RightBar/RightBar";
 const DashLayout = () => {
   return (
     <>
-      <Flex bg="#07261b">
+      <Flex>
         <Box
           bg="#428C7F"
           color="white"

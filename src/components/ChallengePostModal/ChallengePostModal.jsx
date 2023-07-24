@@ -77,7 +77,7 @@ const ChallengePostModal = ({ children }) => {
       >
         <ModalOverlay />
         <ModalContent borderRadius="20px">
-          <ModalHeader bg="#428C7F" color="white">
+          <ModalHeader>
             <Flex align="center">
               <Avatar
                 size="sm"
@@ -92,7 +92,7 @@ const ChallengePostModal = ({ children }) => {
           <ModalCloseButton />
           <Box>
             <form onSubmit={handleSubmit}>
-              <ModalBody bg="#428C7F">
+              <ModalBody>
                 <VStack
                   spacing="1rem"
                   alignItems="flex-start"
@@ -102,30 +102,21 @@ const ChallengePostModal = ({ children }) => {
                   <Input
                     placeholder="Challenge title"
                     w="100%"
-                    borde="1px solid white"
                     onChange={(e) => setTitle(e.target.value)}
-                    focusBorderColor="white"
-                    _placeholder={{ color: "white" }}
-                    color="white"
                   />
                   <Textarea
                     placeholder="What is your challenge about?"
                     h="200px"
                     w="100%"
                     border={0}
-                    color="white"
                     onChange={(e) => setDesc(e.target.value)}
                     focusBorderColor="transparent"
-                    _placeholder={{ color: "white" }}
                   />
                   <Input
                     placeholder="Tutorial, video link"
                     w="100%"
                     border="1px solid #30685d"
                     onChange={(e) => setLink(e.target.value)}
-                    focusBorderColor="white"
-                    _placeholder={{ color: "white" }}
-                    color="white"
                   />
 
                   <Flex mb={5} w="100%" gap={5}>
@@ -136,7 +127,6 @@ const ChallengePostModal = ({ children }) => {
                       htmlFor="banner-upload"
                       variant="outlined"
                       textAlign="center"
-                      color="white"
                     >
                       {selectedFile ? "Change Image" : "Upload Image"}
                     </Button>
@@ -167,11 +157,11 @@ const ChallengePostModal = ({ children }) => {
                 </VStack>
               </ModalBody>
 
-              <ModalFooter bg="#428C7F">
+              <ModalFooter>
                 <Button
                   w="150px"
                   type="submit"
-                  colorScheme="blue"
+                  color="white"
                   mr={3}
                   onClick={onClose}
                   bg="#177067"

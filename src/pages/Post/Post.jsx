@@ -10,7 +10,7 @@ const Challenge = () => {
   }
 
   return (
-    <Stack color="white">
+    <Stack>
       <Stack w="80%" gap={20} pt={10} m="auto">
         {posts.length === 0 && (
           <Text textAlign="center" color="gray.500">

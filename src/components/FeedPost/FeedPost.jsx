@@ -81,7 +81,6 @@ const FeedPost = (post) => {
     <div>
       <Stack
         cursor="pointer"
-        borderColor="#104c46"
         pb={5}
         backgroundColor="transparent"
         borderWidth={2}
@@ -95,7 +94,7 @@ const FeedPost = (post) => {
               src={post.post.user.profilePicture}
             />
 
-            <Text ml={2} fontSize="sm" color="white">
+            <Text ml={2} fontSize="sm">
               {firstName + " " + lastName}
             </Text>
             <Box>
@@ -111,7 +110,6 @@ const FeedPost = (post) => {
                 w={5}
                 h={5}
                 _hover={{ color: "red.500" }}
-                color="white"
                 onClick={handleDelete}
               />
             )}
@@ -141,7 +139,6 @@ const FeedPost = (post) => {
             />
             <Icon
               as={BsChatDotsFill}
-              color="white"
               fontSize="25px"
               ml={2}
               transform="scaleX(-1)"
@@ -156,9 +153,7 @@ const FeedPost = (post) => {
               mr={1}
               px="10px"
             >
-              <Text fontSize="sm" color="white">
-                {post.post.likes.length} likes
-              </Text>
+              <Text fontSize="sm">{post.post.likes.length} likes</Text>
             </Box>
           </Flex>
         </Flex>
@@ -167,7 +162,7 @@ const FeedPost = (post) => {
             <Text>{post.post.desc}</Text>
           </Flex>
         </Stack>
-        <Text mx={5} onClick={handleCommentClick} fontSize="sm" color="white">
+        <Text mx={5} onClick={handleCommentClick} fontSize="sm">
           View all {post.post.comments.length} comments
         </Text>
 

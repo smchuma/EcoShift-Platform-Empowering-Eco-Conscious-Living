@@ -12,7 +12,6 @@ import {
   ModalBody,
   Button,
   Avatar,
-  useColorModeValue,
 } from "@chakra-ui/react";
 import PropTypes from "prop-types";
 import { AiFillCamera } from "react-icons/ai";
@@ -61,8 +60,6 @@ const AvatarModal = ({ dyUser }) => {
     }
   };
 
-  const bgColor = useColorModeValue("gray.100", "gray.700");
-
   return (
     <Box cursor="pointer" w="100%" position="relative">
       <Avatar
@@ -82,7 +79,6 @@ const AvatarModal = ({ dyUser }) => {
             right="0"
             size="sm"
             borderRadius="50%"
-            backgroundColor={bgColor}
           />
         )}
       </Avatar>
@@ -114,7 +110,12 @@ const AvatarModal = ({ dyUser }) => {
                 )}
               </Flex>
               <Flex mb={5} justify="center" align="center" gap={5}>
-                <Button as="label" htmlFor="banner-upload" variant="outline">
+                <Button
+                  as="label"
+                  htmlFor="banner-upload"
+                  bg="transparent"
+                  border="1px solid black"
+                >
                   {selectedFile ? "Change Image" : "Upload Image"}
                 </Button>
                 <input
@@ -125,7 +126,13 @@ const AvatarModal = ({ dyUser }) => {
                   style={{ display: "none" }}
                 />
                 {selectedFile && (
-                  <Button onClick={handleImageUpdate}>Save Changes</Button>
+                  <Button
+                    bg="transparent"
+                    border="1px solid black"
+                    onClick={handleImageUpdate}
+                  >
+                    Save Changes
+                  </Button>
                 )}
               </Flex>
             </ModalBody>

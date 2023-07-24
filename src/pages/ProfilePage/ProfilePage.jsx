@@ -3,7 +3,7 @@ import { Profile } from "../../components";
 
 const ProfilePage = () => {
   return (
-    <Stack color="white" justifyContent="center">
+    <Stack justifyContent="center">
       <Box width="100%" m={2}>
         <Box w="100%">
           <Profile />

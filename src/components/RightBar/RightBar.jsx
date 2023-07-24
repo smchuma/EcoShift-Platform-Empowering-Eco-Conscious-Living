@@ -9,7 +9,6 @@ const RightBar = () => {
         fontSize="xl"
         fontWeight="500"
         borderColor="gray.100"
-        color="teal.400"
         mt="40px"
         textAlign="left"
         px="120px"

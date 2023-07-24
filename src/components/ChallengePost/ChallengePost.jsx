@@ -61,7 +61,7 @@ const Post = (feed) => {
     <div>
       <Stack
         cursor="pointer"
-        borderBottom="2px solid #104c46"
+        borderBottom="2px solid #bebebe"
         pb={5}
         backgroundColor="transparent"
       >
@@ -72,7 +72,6 @@ const Post = (feed) => {
               w={5}
               h={5}
               _hover={{ color: "red.500" }}
-              color="white"
               onClick={handleDelete}
             />
           )}
@@ -112,10 +111,8 @@ const Post = (feed) => {
               padding="10px"
               ml={2}
             >
-              <Icon as={BiSolidGroup} w={5} h={5} color="white" mr={2} />
-              <Text fontSize="sm" color="white">
-                {feed.feed.likes.length} participants
-              </Text>
+              <Icon as={BiSolidGroup} w={5} h={5} mr={2} />
+              <Text fontSize="sm">{feed.feed.likes.length} participants</Text>
             </Box>
             <Box mr={5}>
               <Text fontSize="sm" color="brand.secondary">
@@ -124,27 +121,25 @@ const Post = (feed) => {
             </Box>
           </Flex>
         </Flex>
-        <Stack mt={4} borderTopWidth="1px" borderTopColor="#177067">
+        <Stack mt={4} borderTopWidth="1px" borderTopColor="#bebebe">
           <Box mt={4}>
             <Text>{feed.feed.title}</Text>
           </Box>
           <Box mt={2}>
-            <Text>{feed.feed.desc}</Text>
+            <Text fontSize="sm">{feed.feed.desc}</Text>
           </Box>
           {feed.feed.link && (
             <Box mt={2}>
               <Link href={feed.feed.link} isExternal>
-                <Text fontSize="sm" color="white">
-                  Tutorial Link
-                </Text>
+                <Text fontSize="sm">Tutorial Link</Text>
               </Link>
             </Box>
           )}
           <Flex pt={4} align="center" mt={2}>
-            <Text fontSize="sm" color="gray.500">
+            <Text fontSize="sm" color="gray.800">
               Created by:
             </Text>
-            <Text ml={2} fontSize="sm" color="gray.500">
+            <Text ml={2} fontSize="sm" color="gray.800">
               {firstName + " " + lastName}
             </Text>
           </Flex>
@@ -156,11 +151,10 @@ const Post = (feed) => {
                 as={BiCommentAdd}
                 w={5}
                 h={5}
-                color="white"
                 mr={2}
                 onClick={handleCommentClick}
               />
-              <Text onClick={handleCommentClick} fontSize="sm" color="white">
+              <Text onClick={handleCommentClick} fontSize="sm">
                 Comment
               </Text>
             </Flex>

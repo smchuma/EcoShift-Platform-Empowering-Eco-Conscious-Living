@@ -72,7 +72,7 @@ const ChallengePostModal = ({ children }) => {
       >
         <ModalOverlay />
         <ModalContent borderRadius="20px">
-          <ModalHeader bg="#428C7F" color="white">
+          <ModalHeader>
             <Flex align="center">
               <Avatar
                 size="sm"
@@ -87,23 +87,16 @@ const ChallengePostModal = ({ children }) => {
           <ModalCloseButton />
           <Box>
             <form onSubmit={handleSubmit}>
-              <ModalBody bg="#428C7F">
-                <VStack
-                  spacing="1rem"
-                  alignItems="flex-start"
-                  w="100%"
-                  color="white"
-                >
+              <ModalBody>
+                <VStack spacing="1rem" alignItems="flex-start" w="100%">
                   <Text fontSize="md">Create a post</Text>
                   <Textarea
                     placeholder="Enter text here..."
                     h="200px"
                     w="100%"
                     border={0}
-                    color="white"
                     onChange={(e) => setDesc(e.target.value)}
                     focusBorderColor="transparent"
-                    _placeholder={{ color: "white" }}
                   />
 
                   <Flex mb={5} w="100%" gap={5}>
@@ -114,7 +107,6 @@ const ChallengePostModal = ({ children }) => {
                       htmlFor="banner-upload"
                       variant="outlined"
                       textAlign="center"
-                      color="white"
                     >
                       {selectedFile ? "Change Image" : "Upload Image"}
                     </Button>
@@ -145,14 +137,14 @@ const ChallengePostModal = ({ children }) => {
                 </VStack>
               </ModalBody>
 
-              <ModalFooter bg="#428C7F">
+              <ModalFooter>
                 <Button
                   w="150px"
                   type="submit"
-                  colorScheme="blue"
+                  color="white"
+                  bg="#177067"
                   mr={3}
                   onClick={onClose}
-                  bg="#177067"
                 >
                   Post
                 </Button>

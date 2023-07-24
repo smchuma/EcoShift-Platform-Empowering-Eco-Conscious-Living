@@ -26,7 +26,6 @@ const SuggestedUser = ({ isOnline }) => {
                   spacing={4}
                   align="center"
                   mb={10}
-                  color="white"
                   cursor="pointer"
                 >
                   <Avatar

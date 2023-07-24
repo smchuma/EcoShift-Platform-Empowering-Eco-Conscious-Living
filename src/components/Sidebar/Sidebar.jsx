@@ -1,6 +1,14 @@
-import { Avatar, Box, Button, Flex, Stack, Text } from "@chakra-ui/react";
+import {
+  Avatar,
+  Box,
+  Button,
+  Flex,
+  Stack,
+  Text,
+  useColorMode,
+} from "@chakra-ui/react";
 import { FaTrophy, FaUser } from "react-icons/fa";
-import { BsGear } from "react-icons/bs";
+import { BsFillMoonFill, BsFillSunFill, BsGear } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { AiFillHome, AiOutlineLogout } from "react-icons/ai";
 import { MdPostAdd } from "react-icons/md";
@@ -16,8 +24,10 @@ const Sidebar = () => {
     logout();
   };
 
+  const { colorMode, toggleColorMode } = useColorMode();
+
   return (
-    <Box pt="80px" w="100%">
+    <Box pt="50px" w="100%">
       <Flex justify="center" pb="40px">
         <Link to="/post">
           <Box rounded="full" p="2px" borderWidth={1} borderColor="#177067">
@@ -89,7 +99,6 @@ const Sidebar = () => {
           w="200px"
           cursor="pointer"
           _hover={{ bg: "#177067" }}
-          py={2}
           borderRadius="full"
           px={5}
           align="center"
@@ -97,6 +106,27 @@ const Sidebar = () => {
           <Button display="flex" variant="unstyled" onClick={signOut}>
             <AiOutlineLogout size={24} />
             <Text ml="10px">Logout</Text>
+          </Button>
+        </Flex>
+        <Flex
+          w="200px"
+          cursor="pointer"
+          borderRadius="full"
+          px={5}
+          align="center"
+        >
+          <Button display="flex" variant="unstyled" onClick={toggleColorMode}>
+            {colorMode === "light" ? (
+              <>
+                <BsFillMoonFill size={24} />
+                <Text ml="10px">Dark Mode</Text>
+              </>
+            ) : (
+              <>
+                <BsFillSunFill size={24} />
+                <Text ml="10px">Light Mode</Text>
+              </>
+            )}
           </Button>
         </Flex>
         <PostModal>

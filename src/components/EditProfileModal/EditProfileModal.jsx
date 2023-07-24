@@ -45,8 +45,8 @@ const EditProfileModal = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      await updateUser.mutateAsync(formData);
       onClose();
+      await updateUser.mutateAsync(formData);
     } catch (error) {
       console.log(error);
     }
@@ -171,9 +171,7 @@ const EditProfileModal = () => {
             <Button colorScheme="blue" mr={3} onClick={onClose}>
               Close
             </Button>
-            <Button onClick={handleSubmit} variant="ghost">
-              Save
-            </Button>
+            <Button onClick={handleSubmit}>Save</Button>
           </ModalFooter>
         </ModalContent>
       </Modal>

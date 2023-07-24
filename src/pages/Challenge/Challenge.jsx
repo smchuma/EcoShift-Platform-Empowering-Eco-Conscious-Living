@@ -10,7 +10,7 @@ const Challenge = () => {
   }
 
   return (
-    <Stack color="white">
+    <Stack>
       <Box mt={2}>
         <Header />
       </Box>

@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import { AuthContextProvider } from "./context/Auth/AuthContext";
-import { ChakraProvider } from "@chakra-ui/react";
+import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import { UserContextProvider } from "./context/UserContext/UserContext";
 import { FeedContextProvider } from "./context/FeedContext/FeedContext";
 import App from "./App.jsx";
@@ -11,11 +11,17 @@ import { PostContextProvider } from "./context/PostContext/PostContext";
 
 const queryClient = new QueryClient();
 
+const config = {
+  initialColorMode: "light",
+  useSystemColorMode: false,
+};
+const theme = extendTheme({ config });
+
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <BrowserRouter>
       <QueryClientProvider client={queryClient}>
-        <ChakraProvider>
+        <ChakraProvider theme={theme}>
           <AuthContextProvider>
             <UserContextProvider>
               <FeedContextProvider>
