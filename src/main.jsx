@@ -7,6 +7,7 @@ import { UserContextProvider } from "./context/UserContext/UserContext";
 import { FeedContextProvider } from "./context/FeedContext/FeedContext";
 import App from "./App.jsx";
 import { QueryClient, QueryClientProvider } from "react-query";
+import { PostContextProvider } from "./context/PostContext/PostContext";
 
 const queryClient = new QueryClient();
 
@@ -18,7 +19,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           <AuthContextProvider>
             <UserContextProvider>
               <FeedContextProvider>
-                <App />
+                <PostContextProvider>
+                  <App />
+                </PostContextProvider>
               </FeedContextProvider>
             </UserContextProvider>
           </AuthContextProvider>

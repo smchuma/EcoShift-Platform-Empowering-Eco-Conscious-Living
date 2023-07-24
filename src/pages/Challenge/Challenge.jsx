@@ -1,8 +1,8 @@
 import { Box, Stack, Text } from "@chakra-ui/react";
-import { Header, Post, SkeletonLoader } from "../../components";
+import { ChallengePost, Header, SkeletonLoader } from "../../components";
 import useFeed from "../../hooks/useFeed";
 
-const Feed = () => {
+const Challenge = () => {
   const { feeds } = useFeed();
 
   if (!feeds) {
@@ -25,7 +25,7 @@ const Feed = () => {
             .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
             .map((feed) => (
               <Box key={feed._id}>
-                <Post feed={feed} />
+                <ChallengePost feed={feed} />
               </Box>
             ))}
       </Stack>
@@ -33,4 +33,4 @@ const Feed = () => {
   );
 };
 
-export default Feed;
+export default Challenge;

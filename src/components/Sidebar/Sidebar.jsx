@@ -1,12 +1,12 @@
 import { Avatar, Box, Button, Flex, Stack, Text } from "@chakra-ui/react";
-import { FaUser } from "react-icons/fa";
+import { FaTrophy, FaUser } from "react-icons/fa";
 import { BsGear } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { AiFillHome, AiOutlineLogout } from "react-icons/ai";
 import { MdPostAdd } from "react-icons/md";
 import useUser from "../../hooks/useUser";
 import useAuth from "../../hooks/useAuth";
-import { PostModal } from "..";
+import PostModal from "../PostModal/PostModal";
 
 const Sidebar = () => {
   const { logout } = useAuth();
@@ -19,7 +19,7 @@ const Sidebar = () => {
   return (
     <Box pt="80px" w="100%">
       <Flex justify="center" pb="40px">
-        <Link to="/feed">
+        <Link to="/post">
           <Box rounded="full" p="2px" borderWidth={1} borderColor="#177067">
             <Avatar
               size="2xl"
@@ -30,18 +30,33 @@ const Sidebar = () => {
         </Link>
       </Flex>
       <Stack gap={5} align="center">
-        <Link to="/feed">
+        <Link to="/post">
           <Flex
             w="200px"
             cursor="pointer"
             _hover={{ bg: "#177067" }}
             py={2}
             borderRadius="full"
-            px={10}
+            px={5}
             align="center"
           >
             <AiFillHome size={24} />
-            <Text ml="15px">Home</Text>
+            <Text ml="15px">Posts</Text>
+          </Flex>
+        </Link>
+        <Link to="/challenge">
+          <Flex
+            w="200px"
+            cursor="pointer"
+            _hover={{ bg: "#177067" }}
+            py={2}
+            borderRadius="full"
+            px={5}
+            align="center"
+          >
+            <FaTrophy size={24} />
+
+            <Text ml="15px">Challenges</Text>
           </Flex>
         </Link>
         <Link to={`/profile/${user._id}`}>
@@ -51,7 +66,7 @@ const Sidebar = () => {
             _hover={{ bg: "#177067" }}
             py={2}
             borderRadius="full"
-            px={10}
+            px={5}
             align="center"
           >
             <FaUser size={24} />
@@ -64,7 +79,7 @@ const Sidebar = () => {
           _hover={{ bg: "#177067" }}
           py={2}
           borderRadius="full"
-          px={10}
+          px={5}
           align="center"
         >
           <BsGear size={24} />
@@ -76,7 +91,7 @@ const Sidebar = () => {
           _hover={{ bg: "#177067" }}
           py={2}
           borderRadius="full"
-          px={10}
+          px={5}
           align="center"
         >
           <Button display="flex" variant="unstyled" onClick={signOut}>

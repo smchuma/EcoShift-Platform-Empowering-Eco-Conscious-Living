@@ -6,45 +6,45 @@ import { HorizontalLoader } from "../../components";
 import PropTypes from "prop-types";
 
 const baseUrl = BASEURL;
-const endpointPath = "challenge";
+const endpointPath = "post";
 
-const FeedContext = createContext();
+const PostContext = createContext();
 
-export const FeedReducer = (state, action) => {
+export const PostReducer = (state, action) => {
   switch (action.type) {
-    case "GET_FEEDS":
+    case "GET_POSTS":
       return {
         ...state,
-        feeds: action.payload,
+        posts: action.payload,
       };
-    case "CREATE_FEED":
+    case "CREATE_POST":
       return {
         ...state,
-        feeds: [action.payload, ...state.feeds],
+        posts: [action.payload, ...state.posts],
       };
-    case "DELETE_FEED":
+    case "DELETE_POST":
       return {
-        feeds: state.feeds.filter((feed) => feed._id !== action.payload),
+        posts: state.posts.filter((post) => post._id !== action.payload),
       };
-    case "LIKE_FEED": {
-      const updatedFeeds = state.feeds.map((feed) =>
-        feed._id === action.payload.postId
-          ? { ...feed, likes: [...feed.likes, action.payload.userId] }
-          : feed
+    case "LIKE_POST": {
+      const updatedPosts = state.posts.map((post) =>
+        post._id === action.payload.postId
+          ? { ...post, likes: [...post.likes, action.payload.userId] }
+          : post
       );
       return {
         ...state,
-        feeds: updatedFeeds,
+        posts: updatedPosts,
       };
     }
 
-    case "COMMENT_FEED": {
-      const commentFeed = state.feeds.map((feed) =>
-        feed._id === action.payload.postId
+    case "COMMENT_POST": {
+      const commentPost = state.posts.map((post) =>
+        post._id === action.payload.postId
           ? {
-              ...feed,
+              ...post,
               comments: [
-                ...feed.comments,
+                ...post.comments,
                 {
                   text: action.payload.comment,
                   user: {
@@ -55,11 +55,11 @@ export const FeedReducer = (state, action) => {
                 },
               ],
             }
-          : feed
+          : post
       );
       return {
         ...state,
-        feeds: commentFeed,
+        posts: commentPost,
       };
     }
 
@@ -68,9 +68,9 @@ export const FeedReducer = (state, action) => {
   }
 };
 
-export const FeedContextProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(FeedReducer, {
-    feeds: null,
+export const PostContextProvider = ({ children }) => {
+  const [state, dispatch] = useReducer(PostReducer, {
+    posts: null,
   });
 
   const refreshAccessToken = useRefreshToken();
@@ -78,23 +78,23 @@ export const FeedContextProvider = ({ children }) => {
 
   const {
     isLoading,
-    data: feeds,
+    data: posts,
     refetch,
     error,
   } = useQuery(
-    "feedData",
+    "PostData",
     async () => {
       const accessToken = await refreshAccessToken();
-      const feedResponse = await fetch(`${baseUrl}/${endpointPath}`, {
+      const postResponse = await fetch(`${baseUrl}/${endpointPath}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${accessToken}`,
         },
       });
-      const feedData = await feedResponse.json();
+      const postData = await postResponse.json();
 
-      const userIds = feedData.map((feed) => feed.userId);
+      const userIds = postData.map((post) => post.userId);
 
       const userResponse = await fetch(
         `${baseUrl}/user?id=${userIds.join(
@@ -110,9 +110,9 @@ export const FeedContextProvider = ({ children }) => {
       );
       const userData = await userResponse.json();
 
-      const data = feedData.map((feed) => {
-        const user = userData.find((user) => user._id === feed.userId);
-        const comments = feed.comments.map((comment) => {
+      const data = postData.map((post) => {
+        const user = userData.find((user) => user._id === post.userId);
+        const comments = post.comments.map((comment) => {
           const commentUser = userData.find(
             (user) => user._id === comment.userId
           );
@@ -126,7 +126,7 @@ export const FeedContextProvider = ({ children }) => {
           };
         });
         return {
-          ...feed,
+          ...post,
           comments,
           user: {
             firstName: user.firstName,
@@ -145,7 +145,7 @@ export const FeedContextProvider = ({ children }) => {
     console.log(error);
   }
 
-  const postFeed = useMutation(
+  const postPost = useMutation(
     async (data) => {
       const accessToken = await refreshAccessToken();
       const response = await fetch(`${baseUrl}/${endpointPath}`, {
@@ -160,9 +160,9 @@ export const FeedContextProvider = ({ children }) => {
       return response.json();
     },
     {
-      onSuccess: async (newFeed) => {
+      onSuccess: async (newPost) => {
         const accessToken = await refreshAccessToken();
-        const userId = newFeed.userId;
+        const userId = newPost.userId;
         const userResponse = await fetch(`${baseUrl}/user/${userId}`, {
           method: "GET",
           headers: {
@@ -173,8 +173,8 @@ export const FeedContextProvider = ({ children }) => {
         const userData = await userResponse.json();
 
         // Combine the new post and user data into a single object
-        const feedDataWithUser = {
-          ...newFeed,
+        const postDataWithUser = {
+          ...newPost,
           user: {
             firstName: userData.firstName,
             lastName: userData.lastName,
@@ -185,7 +185,7 @@ export const FeedContextProvider = ({ children }) => {
         // Dispatch the action with the new post and user data
         dispatch({
           type: "CREATE_POST",
-          payload: feedDataWithUser,
+          payload: postDataWithUser,
         });
         await refetch();
         setLoading(false);
@@ -201,7 +201,7 @@ export const FeedContextProvider = ({ children }) => {
     }
   );
 
-  const deleteFeed = useMutation(
+  const deletePost = useMutation(
     async (postId) => {
       const accessToken = await refreshAccessToken();
       const response = await fetch(`${baseUrl}/${endpointPath}/${postId}`, {
@@ -227,7 +227,7 @@ export const FeedContextProvider = ({ children }) => {
       },
     }
   );
-  const likeFeed = useMutation(
+  const likePost = useMutation(
     async ({ postId, userId }) => {
       const accessToken = await refreshAccessToken();
       const response = await fetch(
@@ -253,7 +253,7 @@ export const FeedContextProvider = ({ children }) => {
       staleTime: 60000,
     }
   );
-  const commentFeed = useMutation(
+  const commentPost = useMutation(
     async ({ postId, comment }) => {
       const accessToken = await refreshAccessToken();
       const response = await fetch(
@@ -281,31 +281,31 @@ export const FeedContextProvider = ({ children }) => {
   );
 
   useEffect(() => {
-    if (feeds) {
-      dispatch({ type: "GET_FEEDS", payload: feeds });
+    if (posts) {
+      dispatch({ type: "GET_POSTS", payload: posts });
     }
-  }, [dispatch, feeds]);
+  }, [dispatch, posts]);
 
   return (
-    <FeedContext.Provider
+    <PostContext.Provider
       value={{
         ...state,
         dispatch,
         isLoading,
-        postFeed,
-        deleteFeed,
-        likeFeed,
-        commentFeed,
+        postPost,
+        deletePost,
+        likePost,
+        commentPost,
       }}
     >
       {loading && <HorizontalLoader />}
       {children}
-    </FeedContext.Provider>
+    </PostContext.Provider>
   );
 };
 
-FeedContextProvider.propTypes = {
+PostContextProvider.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-export default FeedContext;
+export default PostContext;

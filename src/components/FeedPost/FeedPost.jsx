@@ -10,36 +10,36 @@ import {
   Icon,
 } from "@chakra-ui/react";
 import { useState } from "react";
-import { BiSolidGroup } from "react-icons/bi";
-import { BiCommentAdd } from "react-icons/bi";
 import useUser from "../../hooks/useUser";
-import useFeed from "../../hooks/useFeed";
+
+import usePost from "../../hooks/usePost";
+import { BsChatDotsFill, BsFillHeartFill } from "react-icons/bs";
 import { MdOutlineDeleteForever } from "react-icons/md";
 
-const Post = (feed) => {
+const FeedPost = (post) => {
   const { user } = useUser();
-  const { deleteFeed, likeFeed, commentFeed } = useFeed();
-  const isLiked = feed.feed.likes.includes(user._id);
+  const { deletePost, likePost, commentPost } = usePost();
+  const isLiked = post.post.likes.includes(user._id);
   const [comment, setComment] = useState("");
   const [showCommentInput, setShowCommentInput] = useState(false);
 
-  const firstName = `${feed.feed.user.firstName
+  const firstName = `${post.post.user.firstName
     .charAt(0)
-    .toUpperCase()}${feed.feed.user.firstName.slice(1)}`;
-  const lastName = `${feed.feed.user.lastName
+    .toUpperCase()}${post.post.user.firstName.slice(1)}`;
+  const lastName = `${post.post.user.lastName
     .charAt(0)
-    .toUpperCase()}${feed.feed.user.lastName.slice(1)}`;
+    .toUpperCase()}${post.post.user.lastName.slice(1)}`;
 
   const handleDelete = async () => {
     try {
-      await deleteFeed.mutate(feed.feed._id);
+      await deletePost.mutate(post.post._id);
     } catch (error) {
       console.log(error);
     }
   };
   const handleJoin = () => {
     if (!isLiked) {
-      likeFeed.mutate({ postId: feed.feed._id, userId: feed.feed.userId });
+      likePost.mutate({ postId: post.post._id, userId: post.post.userId });
     }
   };
 
@@ -49,38 +49,79 @@ const Post = (feed) => {
 
   const handleCommentSubmit = (e) => {
     e.preventDefault();
-    commentFeed.mutate({
-      postId: feed.feed._id,
+    commentPost.mutate({
+      postId: post.post._id,
       comment,
     });
     setComment("");
   };
 
+  function getTimeDifference(timestamp) {
+    const now = new Date();
+    const postTime = new Date(timestamp);
+    const diffMilliseconds = now - postTime;
+    const diffSeconds = diffMilliseconds / 1000;
+    const diffMinutes = diffSeconds / 60;
+    const diffHours = diffMinutes / 60;
+    const diffDays = diffHours / 24;
+
+    if (diffMinutes < 1) {
+      return "just now";
+    } else if (diffHours < 1) {
+      return `${Math.round(diffMinutes)} minutes ago`;
+    } else if (diffDays < 1) {
+      return `${Math.round(diffHours)} hours ago`;
+    } else {
+      return `${Math.round(diffDays)} days ago`;
+    }
+  }
+  const timePost = getTimeDifference(post.post.createdAt);
+
   return (
     <div>
       <Stack
         cursor="pointer"
-        borderBottom="2px solid #104c46"
+        borderColor="#104c46"
         pb={5}
         backgroundColor="transparent"
+        borderWidth={2}
+        borderRadius="20px"
       >
-        <Flex justify="end">
-          {feed.feed.userId === user._id && (
-            <Icon
-              as={MdOutlineDeleteForever}
-              w={5}
-              h={5}
-              _hover={{ color: "red.500" }}
-              color="white"
-              onClick={handleDelete}
+        <Flex p={4} align="center" justify="space-between">
+          <Flex align="center">
+            <Avatar
+              size="sm"
+              name={firstName + " " + lastName}
+              src={post.post.user.profilePicture}
             />
-          )}
+
+            <Text ml={2} fontSize="sm" color="white">
+              {firstName + " " + lastName}
+            </Text>
+            <Box>
+              <Text fontSize="sm" color="gray.500" ml={2} fontWeight="bold">
+                {timePost}
+              </Text>
+            </Box>
+          </Flex>
+          <Box>
+            {post.post.userId === user._id && (
+              <Icon
+                as={MdOutlineDeleteForever}
+                w={5}
+                h={5}
+                _hover={{ color: "red.500" }}
+                color="white"
+                onClick={handleDelete}
+              />
+            )}
+          </Box>
         </Flex>
         <Box>
-          {feed.feed.img && (
-            <Box mt={4}>
+          {post.post.img && (
+            <Box>
               <Image
-                src={feed.feed.img}
+                src={post.post.img}
                 borderRadius="md"
                 alt=""
                 boxSize="100%"
@@ -89,74 +130,47 @@ const Post = (feed) => {
             </Box>
           )}
         </Box>
-        <Flex px={4} mt="20px" justify="space-between">
+        <Flex justify="space-between">
           <Flex align="center">
-            <Button
-              bg={isLiked ? "gray.700" : "#177067"}
-              color="white"
-              fontWeight="300"
+            <Icon
+              as={BsFillHeartFill}
+              color={isLiked ? "red.500" : "gray"}
               onClick={handleJoin}
-              w="100px"
-              _hover={{ transform: "scale(1.05)" }}
-            >
-              {isLiked ? "Joined" : "Join"}
-            </Button>
+              fontSize="25px"
+              ml={2}
+            />
+            <Icon
+              as={BsChatDotsFill}
+              color="white"
+              fontSize="25px"
+              ml={2}
+              transform="scaleX(-1)"
+              onClick={handleCommentClick}
+            />
           </Flex>
           <Flex align="center">
             <Box
               display="flex"
               align="center"
               justify="center"
-              mr={4}
-              padding="10px"
-              ml={2}
+              mr={1}
+              px="10px"
             >
-              <Icon as={BiSolidGroup} w={5} h={5} color="white" mr={2} />
               <Text fontSize="sm" color="white">
-                {feed.feed.likes.length} participants
-              </Text>
-            </Box>
-            <Box mr={5}>
-              <Text fontSize="sm" color="brand.secondary">
-                {feed.feed.comments.length} comments
+                {post.post.likes.length} likes
               </Text>
             </Box>
           </Flex>
         </Flex>
-        <Stack mt={4} borderTopWidth="1px" borderTopColor="#177067">
-          <Box mt={4}>
-            <Text>{feed.feed.title}</Text>
-          </Box>
-          <Box mt={2}>
-            <Text>{feed.feed.desc}</Text>
-          </Box>
-          <Flex pt={10} align="center" mt={2}>
-            <Text fontSize="sm" color="gray.500">
-              Created by:
-            </Text>
-            <Text ml={2} fontSize="sm" color="gray.500">
-              {firstName + " " + lastName}
-            </Text>
+        <Stack mt={2} px={2} direction="row">
+          <Flex>
+            <Text>{post.post.desc}</Text>
           </Flex>
-          <Box></Box>
         </Stack>
-        <Flex mt={5} alignItems="center" justify="center">
-          <Box>
-            <Flex align="center">
-              <Icon
-                as={BiCommentAdd}
-                w={5}
-                h={5}
-                color="white"
-                mr={2}
-                onClick={handleCommentClick}
-              />
-              <Text onClick={handleCommentClick} fontSize="sm" color="white">
-                Comment
-              </Text>
-            </Flex>
-          </Box>
-        </Flex>
+        <Text mx={5} onClick={handleCommentClick} fontSize="sm" color="white">
+          View all {post.post.comments.length} comments
+        </Text>
+
         {showCommentInput && (
           <>
             <Box mt={4}>
@@ -182,7 +196,7 @@ const Post = (feed) => {
               </form>
             </Box>
             <Box p="2" my="2">
-              {feed.feed.comments.map((comment) => (
+              {post.post.comments.map((comment) => (
                 <Box key={comment.itemId} p="2" my="2">
                   <Stack p={2} borderRadius={20}>
                     <Flex justify="space-between">
@@ -213,4 +227,4 @@ const Post = (feed) => {
   );
 };
 
-export default Post;
+export default FeedPost;

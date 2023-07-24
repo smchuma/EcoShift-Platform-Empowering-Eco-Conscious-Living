@@ -3,6 +3,7 @@ import {
   Box,
   Button,
   Flex,
+  Input,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -18,15 +19,17 @@ import {
 import { useState } from "react";
 import PropTypes from "prop-types";
 import useUser from "../../hooks/useUser";
+import useFeed from "../../hooks/useFeed";
 import { MdAddToPhotos } from "react-icons/md";
 import { CLOUD_URL, CLOUD_NAME, CLOUD_PRESET } from "../../api_url/api";
-import usePost from "../../hooks/usePost";
 
 const ChallengePostModal = ({ children }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { user } = useUser();
-  const { postPost } = usePost();
+  const { postFeed } = useFeed();
+  const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
+  const [link, setLink] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
   const [imagePreviewUrl, setImagePreviewUrl] = useState(null);
 
@@ -51,9 +54,11 @@ const ChallengePostModal = ({ children }) => {
       const img = data.secure_url;
 
       // Call the backend API to save the URL
-      await postPost.mutateAsync({ desc, img });
+      await postFeed.mutateAsync({ title, desc, img, link });
 
+      setTitle("");
       setDesc("");
+      setLink("");
       setSelectedFile(null);
     } catch (error) {
       console.error(error);
@@ -92,11 +97,19 @@ const ChallengePostModal = ({ children }) => {
                   spacing="1rem"
                   alignItems="flex-start"
                   w="100%"
-                  color="white"
+                  p="1rem"
                 >
-                  <Text fontSize="md">Create a post</Text>
+                  <Input
+                    placeholder="Challenge title"
+                    w="100%"
+                    borde="1px solid white"
+                    onChange={(e) => setTitle(e.target.value)}
+                    focusBorderColor="white"
+                    _placeholder={{ color: "white" }}
+                    color="white"
+                  />
                   <Textarea
-                    placeholder="Enter text here..."
+                    placeholder="What is your challenge about?"
                     h="200px"
                     w="100%"
                     border={0}
@@ -104,6 +117,15 @@ const ChallengePostModal = ({ children }) => {
                     onChange={(e) => setDesc(e.target.value)}
                     focusBorderColor="transparent"
                     _placeholder={{ color: "white" }}
+                  />
+                  <Input
+                    placeholder="Tutorial, video link"
+                    w="100%"
+                    border="1px solid #30685d"
+                    onChange={(e) => setLink(e.target.value)}
+                    focusBorderColor="white"
+                    _placeholder={{ color: "white" }}
+                    color="white"
                   />
 
                   <Flex mb={5} w="100%" gap={5}>
