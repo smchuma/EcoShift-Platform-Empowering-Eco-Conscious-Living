@@ -13,4 +13,3 @@ export { default as HorizontalLoader } from "./HorizontalLoader/HorizontalLoader
 export { default as Profile } from "./Profile/Profile";
 export { default as FeedPost } from "./FeedPost/FeedPost";
 export { default as AboutMe } from "./AboutMe/AboutMe";
-export { default as MyPost } from "./MyPosts/MyPosts";
