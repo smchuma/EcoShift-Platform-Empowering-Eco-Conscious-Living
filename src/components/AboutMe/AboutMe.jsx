@@ -1,10 +1,13 @@
 /* eslint-disable react/prop-types */
 
+import useTask from "../../hooks/useTask";
+
 import { Stack, Text } from "@chakra-ui/react";
 
 const AboutMe = ({ dyUser }) => {
-  console.log("dyUser", dyUser);
+  const { tasks } = useTask();
 
+  console.log(tasks);
   return (
     <Stack>
       <Text>About Me</Text>

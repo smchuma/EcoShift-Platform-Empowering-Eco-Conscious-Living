@@ -20,8 +20,6 @@ const Profile = () => {
 
   const getPosts = posts.filter((post) => post?.userId === id);
 
-  console.log("getPosts", getPosts);
-
   if (!dyUser) {
     return <Text>Loading...</Text>;
   }

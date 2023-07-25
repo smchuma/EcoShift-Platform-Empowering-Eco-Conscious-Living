@@ -8,6 +8,7 @@ import { FeedContextProvider } from "./context/FeedContext/FeedContext";
 import App from "./App.jsx";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { PostContextProvider } from "./context/PostContext/PostContext";
+import { TaskContextProvider } from "./context/TaskContext/TaskContext";
 
 const queryClient = new QueryClient();
 
@@ -26,7 +27,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
             <UserContextProvider>
               <FeedContextProvider>
                 <PostContextProvider>
-                  <App />
+                  <TaskContextProvider>
+                    <App />
+                  </TaskContextProvider>
                 </PostContextProvider>
               </FeedContextProvider>
             </UserContextProvider>

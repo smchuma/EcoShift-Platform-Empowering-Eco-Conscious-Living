@@ -1,7 +1,6 @@
 import { Button, Flex, Image, Stack, Text } from "@chakra-ui/react";
 import eco from "../../assets/images/eco.png";
 import logo from "../../assets/images/ecologo.png";
-import leaf from "../../assets/images/try2.png";
 
 const Hero = () => {
   return (
@@ -13,7 +12,7 @@ const Hero = () => {
       h={{ base: "80vh", lg: "90vh" }}
     >
       <Flex flex="1" display={{ base: "none", lg: "flex" }} justify="center">
-        <Image mt="60px" src={eco} w="80%" h="80%" />
+        <Image src={eco} boxSize="100%" />
       </Flex>
       <Flex flex="1" flexDir="column" pos="relative">
         <Stack zIndex={10} mt="100px" align="center">
@@ -47,14 +46,6 @@ const Hero = () => {
             Join Now
           </Button>
         </Stack>
-        <Image
-          top={350}
-          display={{ base: "none", lg: "flex" }}
-          left={250}
-          pos="absolute"
-          src={leaf}
-          width="100%"
-        />
       </Flex>
     </Stack>
   );
