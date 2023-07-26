@@ -1,6 +1,7 @@
 import { Box, Button, Flex, Image, Stack, Text } from "@chakra-ui/react";
 import eco from "../../assets/images/cc2.png";
 import logo from "../../assets/images/ecologo.png";
+import { Link } from "react-router-dom";
 
 const Hero = () => {
   return (
@@ -40,18 +41,20 @@ const Hero = () => {
           >
             Your Platform <br /> for Eco-Conscious Living
           </Text>
-          <Button
-            className="btn"
-            borderWidth={1}
-            px={5}
-            mt={5}
-            borderRadius={20}
-            variant="unstyled"
-            w="160px"
-            _hover={{ transform: "scale(1.1)" }}
-          >
-            Join Now
-          </Button>
+          <Link to="/register">
+            <Button
+              className="btn"
+              borderWidth={1}
+              px={5}
+              mt={5}
+              borderRadius={20}
+              variant="unstyled"
+              w="160px"
+              _hover={{ transform: "scale(1.1)" }}
+            >
+              Join Now
+            </Button>
+          </Link>
         </Stack>
       </Flex>
     </Stack>
