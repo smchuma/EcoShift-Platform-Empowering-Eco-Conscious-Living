@@ -129,6 +129,7 @@ const Sidebar = () => {
             )}
           </Button>
         </Flex>
+
         <PostModal>
           <Flex
             w="180px"

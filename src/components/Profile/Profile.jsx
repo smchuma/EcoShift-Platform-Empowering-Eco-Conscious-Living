@@ -7,6 +7,7 @@ import useUser from "../../hooks/useUser";
 import AboutMe from "../AboutMe/AboutMe";
 import usePost from "../../hooks/usePost";
 import FeedPost from "../FeedPost/FeedPost";
+import SkeletonLoader from "../SkeletonLoader/SkeletonLoader";
 
 const Profile = () => {
   const { id } = useParams();
@@ -15,13 +16,13 @@ const Profile = () => {
   const { posts } = usePost();
 
   if (!posts) {
-    return <Text>Loading...</Text>;
+    return <SkeletonLoader />;
   }
 
   const getPosts = posts.filter((post) => post?.userId === id);
 
   if (!dyUser) {
-    return <Text>Loading...</Text>;
+    return <SkeletonLoader />;
   }
 
   const firstName = `${dyUser?.firstName
@@ -86,9 +87,20 @@ const Profile = () => {
         <AboutMe dyUser={dyUser} />
       </Box>
       <Box>
-        <Text fontWeight="300" fontSize="lg" color="gray.100" mt={8} mx={2}>
-          My Posts
-        </Text>
+        <Box
+          w="80%"
+          h="10"
+          m="auto"
+          mt="60px"
+          mb="20px"
+          border="1px solid"
+          borderRadius="md"
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+        >
+          <Text>My Posts</Text>
+        </Box>
         <Stack w="80%" gap={20} pt={5} m="auto">
           {getPosts.length === 0 && (
             <Text textAlign="center" color="gray.500">

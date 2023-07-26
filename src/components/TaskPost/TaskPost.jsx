@@ -3,36 +3,102 @@ import {
   Box,
   Button,
   Flex,
+  Icon,
   Input,
   Progress,
   Stack,
   Text,
 } from "@chakra-ui/react";
+import { useState } from "react";
+import useTask from "../../hooks/useTask";
+import { MdDelete } from "react-icons/md";
+import useUser from "../../hooks/useUser";
 
 const TaskPost = ({ task }) => {
+  const { updateTask, deleteTask } = useTask();
+  const [achieved, setAchieved] = useState("");
+  const { user } = useUser();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const parsedAchieved = parseInt(achieved, 10);
+    if (
+      isNaN(parsedAchieved) ||
+      parsedAchieved < 0 ||
+      parsedAchieved.toString() !== achieved
+    ) {
+      alert("Invalid input. Please enter a valid positive integer.");
+      return;
+    }
+    try {
+      const newAchieved = task.achieved + parsedAchieved;
+      const variables = {
+        id: task?._id,
+        data: { achieved: newAchieved },
+      };
+
+      await updateTask.mutateAsync(variables);
+      setAchieved("");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleDelete = async () => {
+    try {
+      await deleteTask.mutateAsync(task?._id);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <Stack
       w="100%"
       gap={4}
-      borderRadius="md"
+      borderRadius="20px"
       display="flex"
       justifyContent="center"
+      mb="50px"
+      borderWidth={2}
+      p={5}
     >
-      <Text>Activity: {task?.task}</Text>
       <Flex justify="space-between">
-        <Text>Achieved: {task.achieved}</Text>
+        <Text fontWeight="bold">{task.task}</Text>
+        <Flex cursor="pointer" align="center" gap={3}>
+          {task?.userId === user?._id && (
+            <Icon
+              as={MdDelete}
+              boxSize={5}
+              _hover={{ color: "red" }}
+              onClick={handleDelete}
+            />
+          )}
+        </Flex>
       </Flex>
-
       <Box>
-        <Text>
-          Status:{" "}
-          {task.status === "completed"
+        <Text mb={2}>Target to reach: {task.target}</Text>
+        <Text>Achieved: {task.achieved}</Text>
+      </Box>
+
+      <Flex gap={2}>
+        <Text>Status: </Text>
+        <Text
+          color={
+            task.achieved >= task.target
+              ? "green"
+              : task.status === "In Progress"
+              ? "red"
+              : "red"
+          }
+        >
+          {task.achieved >= task.target
             ? "Completed"
-            : task.status === "in-progress"
+            : task.status === "In Progress"
             ? "In Progress"
             : "Not Started"}
         </Text>
-      </Box>
+      </Flex>
       <Box>
         <Text>
           Created on:{" "}
@@ -44,18 +110,29 @@ const TaskPost = ({ task }) => {
         size="lg"
         value={(task.achieved / task.target) * 100}
       />
-      <Flex justify="space-between">
-        <Input w="250px" placeholder="Enter achieved:" />
-        <Button
-          bg="teal"
-          variant="unstyled"
-          color="white"
-          px={4}
-          // onClick={handleLogEvent}
-        >
-          Log Event
-        </Button>
-      </Flex>
+      {task?.userId === user?._id && (
+        <Flex gap={5} justify="space-between">
+          <Input
+            value={achieved}
+            onChange={(e) => setAchieved(e.target.value)}
+            w="250px"
+            placeholder="Enter achieved:"
+          />
+          <Button
+            variant={task.achieved >= task.target ? "disabled" : "solid"}
+            bg={task.achieved >= task.target ? "gray" : "teal"}
+            color={task.achieved >= task.target ? "gray.400" : "white"}
+            px={6}
+            fontWeight="300"
+            borderRadius="20px"
+            fontSize="15px"
+            _hover={{ transform: "scale(1.1)" }}
+            onClick={task.achieved >= task.target ? null : handleSubmit}
+          >
+            Log Event
+          </Button>
+        </Flex>
+      )}
     </Stack>
   );
 };

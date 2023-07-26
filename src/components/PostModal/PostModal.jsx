@@ -22,7 +22,7 @@ import { MdAddToPhotos } from "react-icons/md";
 import { CLOUD_URL, CLOUD_NAME, CLOUD_PRESET } from "../../api_url/api";
 import usePost from "../../hooks/usePost";
 
-const ChallengePostModal = ({ children }) => {
+const PostModal = ({ children }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { user } = useUser();
   const { postPost } = usePost();
@@ -156,8 +156,8 @@ const ChallengePostModal = ({ children }) => {
     </>
   );
 };
-ChallengePostModal.propTypes = {
+PostModal.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-export default ChallengePostModal;
+export default PostModal;

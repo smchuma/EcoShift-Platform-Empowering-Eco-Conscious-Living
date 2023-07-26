@@ -3,10 +3,19 @@ import { Outlet } from "react-router-dom";
 import Sidebar from "../Sidebar/Sidebar";
 import { Box, Flex } from "@chakra-ui/react";
 import RightBar from "../RightBar/RightBar";
+import DashNav from "../DashNav/DashNav";
 
 const DashLayout = () => {
   return (
     <>
+      <Box
+        display={{
+          base: "block",
+          md: "none",
+        }}
+      >
+        <DashNav />
+      </Box>
       <Flex>
         <Box
           bg="#428C7F"

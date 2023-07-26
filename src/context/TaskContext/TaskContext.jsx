@@ -166,10 +166,12 @@ export const TaskContextProvider = ({ children }) => {
   );
 
   const updateTask = useMutation(
-    async (data) => {
+    async (variables) => {
       const accessToken = await refreshAccessToken();
-      const response = await fetch(`${baseUrl}/${endpointPath}`, {
-        method: "PUT",
+      const { id, data } = variables;
+
+      const response = await fetch(`${baseUrl}/${endpointPath}/${id} `, {
+        method: "PATCH",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${accessToken}`,
@@ -179,6 +181,7 @@ export const TaskContextProvider = ({ children }) => {
 
       return response.json();
     },
+
     {
       onSuccess: async (updatedTask) => {
         dispatch({
