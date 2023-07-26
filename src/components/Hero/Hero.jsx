@@ -1,5 +1,5 @@
-import { Button, Flex, Image, Stack, Text } from "@chakra-ui/react";
-import eco from "../../assets/images/eco.png";
+import { Box, Button, Flex, Image, Stack, Text } from "@chakra-ui/react";
+import eco from "../../assets/images/cc2.png";
 import logo from "../../assets/images/ecologo.png";
 
 const Hero = () => {
@@ -11,11 +11,18 @@ const Hero = () => {
       w="100%"
       h={{ base: "80vh", lg: "90vh" }}
     >
-      <Flex flex="1" display={{ base: "none", lg: "flex" }} justify="center">
-        <Image src={eco} w="100%" objectFit={"cover"} />
+      <Flex
+        align="center"
+        flex="1"
+        display={{ base: "none", lg: "flex" }}
+        justify="center"
+      >
+        <Box w="80%">
+          <Image src={eco} w="100%" objectFit={"cover"} />
+        </Box>
       </Flex>
       <Flex flex="1" flexDir="column" pos="relative">
-        <Stack zIndex={10} mt="100px" align="center">
+        <Stack mt="100px" align="center">
           <Image src={logo} width="150px" />
 
           <Text
