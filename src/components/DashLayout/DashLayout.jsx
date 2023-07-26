@@ -4,8 +4,11 @@ import Sidebar from "../Sidebar/Sidebar";
 import { Box, Flex } from "@chakra-ui/react";
 import RightBar from "../RightBar/RightBar";
 import DashNav from "../DashNav/DashNav";
+import useUser from "../../hooks/useUser";
 
 const DashLayout = () => {
+  const { user } = useUser();
+
   return (
     <>
       <Box
@@ -14,7 +17,7 @@ const DashLayout = () => {
           md: "none",
         }}
       >
-        <DashNav />
+        <DashNav user={user} />
       </Box>
       <Flex>
         <Box

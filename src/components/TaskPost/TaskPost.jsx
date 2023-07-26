@@ -30,6 +30,13 @@ const TaskPost = ({ task }) => {
       alert("Invalid input. Please enter a valid positive integer.");
       return;
     }
+
+    if (task.achieved >= task.target) {
+      alert("Task already completed.");
+      setAchieved("");
+      return;
+    }
+
     try {
       const newAchieved = task.achieved + parsedAchieved;
       const variables = {
@@ -117,19 +124,20 @@ const TaskPost = ({ task }) => {
             onChange={(e) => setAchieved(e.target.value)}
             w="250px"
             placeholder="Enter achieved:"
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                handleSubmit(e);
+              }
+            }}
           />
           <Button
-            variant={task.achieved >= task.target ? "disabled" : "solid"}
-            bg={task.achieved >= task.target ? "gray" : "teal"}
-            color={task.achieved >= task.target ? "gray.400" : "white"}
+            variant="unstyled"
+            color={task.achieved >= task.target ? "gray.400" : "teal"}
             px={6}
-            fontWeight="300"
-            borderRadius="20px"
-            fontSize="15px"
-            _hover={{ transform: "scale(1.1)" }}
+            fontSize="18px"
             onClick={task.achieved >= task.target ? null : handleSubmit}
           >
-            Log Event
+            add
           </Button>
         </Flex>
       )}

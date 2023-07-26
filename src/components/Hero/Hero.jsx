@@ -12,7 +12,7 @@ const Hero = () => {
       h={{ base: "80vh", lg: "90vh" }}
     >
       <Flex flex="1" display={{ base: "none", lg: "flex" }} justify="center">
-        <Image src={eco} boxSize="100%" />
+        <Image src={eco} w="100%" objectFit={"cover"} />
       </Flex>
       <Flex flex="1" flexDir="column" pos="relative">
         <Stack zIndex={10} mt="100px" align="center">

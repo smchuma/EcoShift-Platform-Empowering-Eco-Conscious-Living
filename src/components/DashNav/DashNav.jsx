@@ -1,33 +1,27 @@
+/* eslint-disable react/prop-types */
 import { Avatar, Flex, Stack, Text } from "@chakra-ui/react";
-import useUser from "../../hooks/useUser";
-import { GiHamburgerMenu } from "react-icons/gi";
 import DrawerComp from "../DrawerComp/DrawerComp";
 
-const DashNav = () => {
-  const { user } = useUser;
-
+const DashNav = ({ user }) => {
   return (
     <Stack direction={"row"} justify={"space-between"} p={5}>
-      <Flex>
-        <DrawerComp>
-          <GiHamburgerMenu size={24} />
-          ss
-        </DrawerComp>
-      </Flex>
       {user && (
-        <Flex>
+        <Flex align="center" gap={2}>
           <Avatar
             src={user?.profilePicture}
             name={user?.firstName + " " + user?.lastName}
-            size={"md"}
+            size={"sm"}
           />
-          <Text>{`${user?.firstName
+          <Text fontSize="sm">{`${user?.firstName
             .charAt(0)
             .toUpperCase()}${user?.firstName.slice(1)} ${user?.lastName
             .charAt(0)
             .toUpperCase()}${user?.lastName.slice(1)}`}</Text>
         </Flex>
       )}
+      <Flex align="center">
+        <DrawerComp user={user} />
+      </Flex>
     </Stack>
   );
 };

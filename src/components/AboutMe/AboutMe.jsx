@@ -6,16 +6,19 @@ import SkeletonLoader from "../SkeletonLoader/SkeletonLoader";
 import TaskPost from "../TaskPost/TaskPost";
 import TaskInput from "../TaskInput/TaskInput";
 import { MdPostAdd } from "react-icons/md";
+import useUser from "../../hooks/useUser";
 
 const AboutMe = ({ dyUser }) => {
-  const id = dyUser?._id;
+  const userId = dyUser?._id;
+
   const { tasks } = useTask();
+  const { user } = useUser();
 
   if (!tasks) {
     return <SkeletonLoader />;
   }
 
-  const getTasks = tasks.filter((task) => task?.userId === id);
+  const getTasks = tasks.filter((task) => task.userId === userId);
 
   return (
     <Stack>
@@ -25,7 +28,7 @@ const AboutMe = ({ dyUser }) => {
         </Text>
       )}
       <Stack w="90%" gap={5} m="auto">
-        {dyUser._id === tasks[0].userId && (
+        {dyUser?._id === user?._id && (
           <Flex mb={5} justify="end">
             <TaskInput>
               <Flex
@@ -58,11 +61,11 @@ const AboutMe = ({ dyUser }) => {
           justifyContent="center"
           mb={5}
         >
-          <Text>Activities</Text>
+          <Text>Eco Log</Text>
         </Box>
         {getTasks.length === 0 && (
           <Text textAlign="center" color="gray.500">
-            There are no activities logged yet
+            There are no logs yet
           </Text>
         )}
         {getTasks && (
@@ -73,9 +76,7 @@ const AboutMe = ({ dyUser }) => {
             {getTasks
               .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
               .map((task) => (
-                <Box key={task._id}>
-                  <TaskPost task={task} />
-                </Box>
+                <TaskPost key={task._id} task={task} />
               ))}
           </SimpleGrid>
         )}

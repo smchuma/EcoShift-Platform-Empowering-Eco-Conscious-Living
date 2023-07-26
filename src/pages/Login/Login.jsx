@@ -81,12 +81,10 @@ const Login = () => {
         minH="100vh"
         w="100%"
         mt="70px"
-        backgroundColor="gray.200"
       >
         <Stack
           align="center"
           w={{ base: "400px", md: "500px" }}
-          bg="white"
           p="60px"
           boxShadow="rgba(0, 0, 0, 0.2) 0px 4px 12px"
           borderRadius="20px"
