@@ -1,5 +1,4 @@
-export const BASEURL = "https://ecoshift-backend-production.up.railway.app";
-
+export const BASEURL = "http://localhost:4500";
 export const CLOUD_URL =
   "https://api.cloudinary.com/v1_1/samstore/image/upload";
 
