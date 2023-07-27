@@ -17,6 +17,7 @@ import * as Yup from "yup";
 import axios from "axios";
 import { useState } from "react";
 import Navbar from "../../components/Navbar/Navbar";
+import { useColorModeValue } from "@chakra-ui/react";
 
 const Register = () => {
   const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
@@ -24,6 +25,10 @@ const Register = () => {
   const [errMsg, setErrMsg] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const boxShadowColor = useColorModeValue(
+    "rgba(0, 0, 0, 0.3)",
+    "rgba(255, 255, 255, 0.1)"
+  );
 
   const handleSubmit = async (values, actions) => {
     setLoading(true);
@@ -66,19 +71,12 @@ const Register = () => {
   return (
     <>
       <Navbar />
-      <Stack
-        boxShadow="rgba(0, 0, 0, 0.1) 0px 4px 12px"
-        justify="center"
-        align="center"
-        minH="100vh"
-        w="100%"
-        mt="80px"
-      >
+      <Stack justify="center" align="center" minH="100vh" w="100%" mt="80px">
         <Stack
           align="center"
           w={{ base: "400px", md: "500px" }}
           p="80px"
-          boxShadow="rgba(0, 0, 0, 0.2) 0px 4px 12px"
+          boxShadow={`0px 4px 8px ${boxShadowColor}`}
           borderRadius="20px"
         >
           <Text fontSize="30px">Register</Text>

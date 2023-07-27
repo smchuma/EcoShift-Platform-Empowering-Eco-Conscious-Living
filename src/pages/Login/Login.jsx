@@ -20,12 +20,18 @@ import * as Yup from "yup";
 import axios from "axios";
 import { useState } from "react";
 import { Navbar } from "../../components";
+import { useColorModeValue } from "@chakra-ui/react";
 
 const Login = () => {
   const [errMsg, setErrMsg] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { login } = useAuth();
+
+  const boxShadowColor = useColorModeValue(
+    "rgba(0, 0, 0, 0.3)",
+    "rgba(255, 255, 255, 0.1)"
+  );
 
   const handleSubmit = async (values, actions) => {
     setLoading(true);
@@ -74,25 +80,20 @@ const Login = () => {
   return (
     <>
       <Navbar />
-      <Stack
-        boxShadow="rgba(0, 0, 0, 0.1) 0px 4px 12px"
-        justify="center"
-        align="center"
-        minH="100vh"
-        w="100%"
-        mt="70px"
-      >
+      <Stack justify="center" align="center" minH="100vh" w="100%" mt="70px">
         <Stack
           align="center"
           w={{ base: "400px", md: "500px" }}
           p="60px"
-          boxShadow="rgba(0, 0, 0, 0.2) 0px 4px 12px"
           borderRadius="20px"
+          borderWidth={5}
+          borderStyle="solid"
+          boxShadow={`0px 4px 8px ${boxShadowColor}`}
         >
           <Image mb={5} src={logo} boxSize="80px" objectFit="cover" />
 
           <Text fontSize="30px">Login.</Text>
-          <Box w="100%">
+          <Box w="100%" bg="">
             <Formik
               initialValues={{
                 email: "",
