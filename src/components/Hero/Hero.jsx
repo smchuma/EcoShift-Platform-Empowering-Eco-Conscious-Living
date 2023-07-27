@@ -18,7 +18,7 @@ const Hero = () => {
         display={{ base: "none", lg: "flex" }}
         justify="center"
       >
-        <Box w="80%">
+        <Box w="100%">
           <Image src={eco} w="100%" objectFit={"cover"} />
         </Box>
       </Flex>
@@ -30,13 +30,14 @@ const Hero = () => {
             color="white"
             fontWeight="600"
             textAlign="center"
-            fontSize="40px"
+            fontSize="35px"
+            mt={5}
           >
             Join the Green Movement
           </Text>
           <Text
             textAlign="center"
-            fontSize={{ base: "22px", md: "30px" }}
+            fontSize={{ base: "22px", md: "25px" }}
             color="#e2ffa2"
           >
             Your Platform <br /> for Eco-Conscious Living

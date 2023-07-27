@@ -86,8 +86,6 @@ const Login = () => {
           w={{ base: "400px", md: "500px" }}
           p="60px"
           borderRadius="20px"
-          borderWidth={5}
-          borderStyle="solid"
           boxShadow={`0px 4px 8px ${boxShadowColor}`}
         >
           <Image mb={5} src={logo} boxSize="80px" objectFit="cover" />
