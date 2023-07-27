@@ -22,8 +22,8 @@ const Hero = () => {
           <Image src={eco} w="100%" objectFit={"cover"} />
         </Box>
       </Flex>
-      <Flex flex="1" flexDir="column" pos="relative">
-        <Stack mt="100px" align="center">
+      <Flex flex="1" flexDir="column" justify="center" align="center">
+        <Stack justify="center" align="center">
           <Image src={logo} width="150px" />
 
           <Text
