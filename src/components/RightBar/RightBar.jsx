@@ -13,7 +13,7 @@ const RightBar = () => {
         textAlign="left"
         px="120px"
       >
-        People Online
+        EcoHearts
       </Text>
       <Box
         px="100px"

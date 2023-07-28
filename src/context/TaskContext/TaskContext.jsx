@@ -93,9 +93,9 @@ export const TaskContextProvider = ({ children }) => {
         return {
           ...task,
           user: {
-            firstName: user.firstName,
-            lastName: user.lastName,
-            profilePicture: user.profilePicture,
+            firstName: user?.firstName,
+            lastName: user?.lastName,
+            profilePicture: user?.profilePicture,
           },
         };
       });
